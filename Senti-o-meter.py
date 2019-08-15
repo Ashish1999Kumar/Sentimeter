@@ -33,7 +33,7 @@ class TwitterStreamer():
         auth=self.twitter_authenticate.authenticate_twitter_app()
         listener=Streamy(fetched_file_names)
         stream=Stream(auth,listener)
-        stream.filter(track=['#84rhg'])
+        stream.filter(track=['#8299as'])
     
     
 class Streamy(StreamListener):
@@ -44,23 +44,25 @@ class Streamy(StreamListener):
         try:
             parsed_json = (json.loads(data))
             j=json.dumps(parsed_json,sort_keys=True,indent=2)
-            print(j)
+            print(type(j))
+            print(dict(j).get("text"))
             with open(self.fetched_file_names,'a') as tf:
-                tf.write('\n'+j)
+                tf.write('\n'+eval(j).get("text")))
         except BaseException as e:
             print("Error on data %s" %str(e))
         return True
     
     def on_error(self,error):
+        print(error)
         if error==420:
             return False
-        print(error)
+        
         
 fetched_file_names="tweets.json"
-#twitter_streamer=TwitterStreamer()
-#twitter_streamer.stream_tweets(fetched_file_names)
-twitter_clientobj=TwitterClient()
-print(twitter_clientobj.get_user_timeline_tweets(2))
+twitter_streamer=TwitterStreamer()
+twitter_streamer.stream_tweets(fetched_file_names)
+#twitter_clientobj=TwitterClient()
+#print(twitter_clientobj.get_user_timeline_tweets(2))
         
 
 
