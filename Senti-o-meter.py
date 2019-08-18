@@ -7,16 +7,6 @@ import json
 from ast import literal_eval
 
 import credentials
-class TwitterClient():
-    def __init__(self):
-        self.auth=twitter_authenticator().authenticate_twitter_app()
-        self.twitter_client=API(self.auth)
-    
-    def get_user_timeline_tweets(self,num_tweets):
-        tweets=[]
-        for tweet in Cursor(self.twitter_client.user_timeline).items(num_tweets):
-            tweets.append(tweet)
-        return tweets
 
 class twitter_authenticator():
     
@@ -45,11 +35,9 @@ class Streamy(StreamListener):
         try:
             parsed_json = (json.loads(data))
             j=json.dumps(parsed_json,sort_keys=True,indent=2)
-            k=literal_eval(j)
-            print(type(k))
-            #print(dict(j).get("text"))
-            #with open(self.fetched_file_names,'a') as tf:
-                #tf.write('\n'+eval(j).get("text"))
+            print(j)
+            with open(self.fetched_file_names,'a') as tf:
+                tf.write('\n'+j)
         except BaseException as e:
             print("Error on data %s" %str(e))
         return True
@@ -63,8 +51,7 @@ class Streamy(StreamListener):
 fetched_file_names="tweets.json"
 twitter_streamer=TwitterStreamer()
 twitter_streamer.stream_tweets(fetched_file_names)
-#twitter_clientobj=TwitterClient()
-#print(twitter_clientobj.get_user_timeline_tweets(2))
+
         
 
 
