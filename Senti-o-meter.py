@@ -1,5 +1,5 @@
-from tweepy import API
-from tweepy import Cursor
+import numpy as np
+import pandas as pd
 from tweepy.streaming import StreamListener
 from tweepy import OAuthHandler
 from tweepy import Stream
@@ -31,13 +31,13 @@ class Streamy(StreamListener):
     def __init__(self,fetched_file_names):
         self.fetched_file_names=fetched_file_names
         
-    def on_data(self,data):
+    def on_data(self,datas):
         try:
-            parsed_json = (json.loads(data))
-            j=json.dumps(parsed_json,sort_keys=True,indent=2)
-            print(j)
+            parsed_json = (json.loads(datas))
+            print(parsed_json)
+            text=parsed_json['text']
             with open(self.fetched_file_names,'a') as tf:
-                tf.write('\n'+j)
+                tf.write('\n'+text) 
         except BaseException as e:
             print("Error on data %s" %str(e))
         return True
