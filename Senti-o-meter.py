@@ -24,7 +24,7 @@ class TwitterStreamer():
         auth=self.twitter_authenticate.authenticate_twitter_app()
         listener=Streamy(fetched_file_names)
         stream=Stream(auth,listener)
-        stream.filter(track=['#8299as'])
+        stream.filter(track=['#Shameonaajtak'])
     
     
 class Streamy(StreamListener):
