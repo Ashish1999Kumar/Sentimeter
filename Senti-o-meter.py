@@ -24,7 +24,8 @@ class TwitterStreamer():
         auth=self.twitter_authenticate.authenticate_twitter_app()
         listener=Streamy(fetched_file_names)
         stream=Stream(auth,listener)
-        stream.filter(track=['#Shameonaajtak'])
+        hashq=input("Hashtag you want\n")
+        stream.filter(track=['#'+hashq])
     
     
 class Streamy(StreamListener):
@@ -51,7 +52,11 @@ class Streamy(StreamListener):
 fetched_file_names="tweets.json"
 twitter_streamer=TwitterStreamer()
 twitter_streamer.stream_tweets(fetched_file_names)
-
+f = open("tweets.json", "r")
+df=pd.DataFrame(data=[x for x in f])
+f.close()
+print(df.head())
+  
         
 
 
