@@ -19,7 +19,7 @@ search_words=input("Enter the serch word\n")
 search_words=search_words+" -filter:retweets"
 date_since = "2019-09-15"
 tweets = tw.Cursor(api.search,q=search_words,lang="en",since=date_since).items(10)
-users_locs = [tweet.text for tweet in tweets]
+users_locs = [tweet.text.lower() for tweet in tweets]
 
 user_loc=[]
 email='\shttp\S*'
@@ -37,9 +37,10 @@ filtered=[]
 
 for i in token_words:
     x=[w for w in i if not w in stop_words]
-    filtered.append(x)
+    y=" ".join(x)
+    filtered.append(y)
 
-tweet_text = pd.DataFrame(data=user_loc, 
+tweet_text = pd.DataFrame(data=filtered, 
                     columns=['usertext'])
 export_csv = tweet_text.to_csv (r'/home/ashish/Sentimeter/tee.csv', index = None, header=True)
 print(tweet_text.head())
