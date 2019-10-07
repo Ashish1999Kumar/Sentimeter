@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import re
 import tweepy as tw
+from datetime import date
 import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
@@ -15,9 +16,9 @@ auth=tw.OAuthHandler(CONSUMER_KEY,CONSUMER_SECRET_KEY)
 auth.set_access_token(ACCESS_KEY,ACCESS_KEY_SECRET)
 
 api=tw.API(auth)
-search_words=input("Enter the serch word\n")
+search_words='#'+input("Enter the serch word\n")
 search_words=search_words+" -filter:retweets"
-date_since = "2019-09-15"
+date_since = date.today()
 tweets = tw.Cursor(api.search,q=search_words,lang="en",since=date_since).items(10)
 users_locs = [tweet.text.lower() for tweet in tweets]
 
