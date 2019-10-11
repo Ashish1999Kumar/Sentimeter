@@ -7,8 +7,8 @@ import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 
-CONSUMER_KEY=""
-CONSUMER_SECRET_KEY=""
+CONSUMER_KEY="Mx9IQJB2JVK3I3I31GvLCJtL3"
+CONSUMER_SECRET_KEY="3yrzYDWcbL5Lc8ELvWaErVvFWTq2o5VPuavbLXjIZaLGHDhRtR"
 ACCESS_KEY="1152979320459030528-1AJh1PKmKMO70xOhAjsrXz23UXvMog"
 ACCESS_KEY_SECRET="yekeVb4fghMKJdLXJafMQWsIXnDTRRm5rtXSpvul8Yo6p"
 
@@ -42,6 +42,6 @@ for i in token_words:
     filtered.append(y)
 
 tweet_text = pd.DataFrame(data=filtered, 
-                    columns=['usertext'])
+                    columns=['tweet'])
 export_csv = tweet_text.to_csv (r'/home/ashish/Sentimeter/tee.csv', index = None, header=True)
 print(tweet_text.head())
